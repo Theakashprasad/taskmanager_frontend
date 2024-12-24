@@ -17,9 +17,6 @@ function Home() {
     const token = localStorage.getItem("authToken")
     socket.emit("getTasks", token)
 
-    socket.on("fetchTask", (tasks) => {
-      // setTasks(tasks)
-    })
  
     return () => {
       socket.off("fetchTask")

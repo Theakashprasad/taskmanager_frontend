@@ -78,11 +78,7 @@ const TaskList = () => {
     };
   }, [socket]);
 
-  const handleEditClick = (task: any) => {
-    setEditingId(task._id);
-    setEditTitle(task.title);
-    setEditDescription(task.description);
-  };
+
 
   const handleUpdateTask = () => {
     // dispatch(updateTask({ id: editingId, title: editTitle, description: editDescription }));
