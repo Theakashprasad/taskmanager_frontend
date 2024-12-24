@@ -8,7 +8,7 @@ export const SocketProvider = ({ children }: any) => {
 
   useEffect(() => {
     // Connect to the Socket.io server
-    const newSocket = io("http://localhost:3000"); // Replace with your backend URL
+    const newSocket = io("https://taskmanager-backend-sww2.onrender.com"); // Replace with your backend URL
     setSocket(newSocket);
 
     // Clean up socket on component unmount
