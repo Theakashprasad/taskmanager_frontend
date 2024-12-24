@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Tooltip,
   Legend,
@@ -34,7 +34,7 @@ const TaskStatistics = () => {
       const pendingTasks = totalTasks - completedTasks;
 
       const tasksLast7Days = allTasks.filter((task) => {
-        const createdAt = new Date(task.createdAt); // adjust if different
+        const createdAt = new Date(task?.createdAt); // adjust if different
         const now = new Date();
         const sevenDaysAgo = new Date(now.setDate(now.getDate() - 7));
         return createdAt > sevenDaysAgo;

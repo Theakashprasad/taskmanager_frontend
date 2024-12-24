@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
-// import { useSelector, useDispatch } from 'react-redux';
-// import { updateTask, deleteTask } from '../store/tasksSlice';
-import { Pencil, Trash2, Check } from "lucide-react";
+import  { useEffect, useState } from "react";
+import {  Trash2, Check } from "lucide-react";
 import { useSocket } from "../context/useSocket";
 import { ITask } from "../Types/User";
 import { useTask } from "../context/useTask";

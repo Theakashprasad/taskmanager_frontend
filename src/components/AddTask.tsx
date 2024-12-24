@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useSocket } from '../context/useSocket';
-// import { useDispatch } from 'react-redux';
-// import { addTask } from '../store/tasksSlice';
-// import toast from 'react-hot-toast';
+
 
 const AddTask = () => {
   const [title, setTitle] = useState('');

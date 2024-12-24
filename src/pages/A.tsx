@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import axios from "axios";
 import { io } from "socket.io-client";
-import { Iuser } from "../Types/User";
 
 const socket = io("http://localhost:3000");
 

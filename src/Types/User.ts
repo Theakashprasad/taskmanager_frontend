@@ -7,6 +7,7 @@ export interface Iuser{
     profilePic: string;
   }
   export interface ITask {
+    createdAt: string | number | Date;
     _id: string;
     isCompleted: boolean;
     title: string;

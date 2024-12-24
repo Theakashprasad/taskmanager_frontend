@@ -1,6 +1,5 @@
 import AddTask from '../components/AddTask';
 import TaskList from '../components/TaskList';
-import { LoadingSpinner } from '../components/LoadingSpinner';
 import { useSocket } from '../context/useSocket';
 import { useEffect } from 'react';
 import TaskStatistics from '../components/TaskStatistics';
