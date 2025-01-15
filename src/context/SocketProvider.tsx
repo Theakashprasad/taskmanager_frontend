@@ -7,7 +7,7 @@ export const SocketProvider = ({ children }: any) => {
   const [socket, setSocket] = useState<Socket | null>(null);
 
   useEffect(() => {
-    const baseURL = import.meta.env.VITE_PUBLIC_SERVER_URL; // Environment variable for the base URL
+    // const baseURL = import.meta.env.VITE_PUBLIC_SERVER_URL; // Environment variable for the base URL
     const newSocket = io("https://taskmanager-7xd2.onrender.com", {
       transports: ["websocket", "polling"], // Use WebSocket with fallback
       withCredentials: true, // Include credentials
