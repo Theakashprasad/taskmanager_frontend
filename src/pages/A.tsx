@@ -31,19 +31,18 @@
 
 //   async function a(initialUserState: any) {
 //       console.log('asfasd', initialUserState);
-      
+
 //       const tasks =  await axios.get(`http://localhost:3000/api/task/${initialUserState}`);
 //       console.log('sdsdsd',tasks.data);
 //     setTasks(tasks.data)
-//   } 
+//   }
 
 //   useEffect(() => {
 //     // Listen for the message from the server
-   
 
 //     socket.on("connect", () => {
 //         console.log('fun fun', usersDatas?.id);
-        
+
 //         socket.emit('user_connected', usersDatas?.id);
 
 //       socket.on("message", (data) => {
@@ -52,13 +51,11 @@
 
 //       socket.on('taskAdded', (task) => {
 //         console.log('asdfasdtasdfasdfasdfsad',task);
-        
+
 //         setTasks((prevTasks) => [...prevTasks, task]);
 //       });
-      
+
 //     });
-
-
 
 //     // Clean up when the component unmounts
 //     return () => {
@@ -97,7 +94,7 @@
 //         />
 //         <button onClick={addTask}>Add Task</button>
 //       </div>
-//       <ul>   
+//       <ul>
 //         {tasks.map((task) => (
 //           <li key={task._id}>
 //             {task.task}{" "}
