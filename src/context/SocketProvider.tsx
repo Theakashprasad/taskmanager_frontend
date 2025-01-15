@@ -8,9 +8,12 @@ export const SocketProvider = ({ children }: any) => {
 
   useEffect(() => {
     const baseURL = import.meta.env.VITE_PUBLIC_SERVER_URL; // Environment variable for the base URL
-
+    const newSocket = io("https://taskmanager-7xd2.onrender.com", {
+      transports: ["websocket", "polling"], // Use WebSocket with fallback
+      withCredentials: true, // Include credentials
+    });
     // Connect to the Socket.io server
-    const newSocket = io(baseURL); // Replace with your backend URL
+    // const newSocket = io(baseURL); // Replace with your backend URL
     setSocket(newSocket);
 
     // Clean up socket on component unmount
