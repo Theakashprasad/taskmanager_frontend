@@ -10,10 +10,10 @@ export const SocketProvider = ({ children }: any) => {
     const baseURL = import.meta.env.VITE_PUBLIC_SERVER_URL; // Environment variable for the base URL
 
     // Connect to the Socket.io server
-    const newSocket = io(baseURL); // Replace with your backend URL
+    const newSocket = io(baseURL);
     setSocket(newSocket);
 
-    // Clean up socket on component unmount
+
     return () => {
       newSocket.disconnect();
     };
