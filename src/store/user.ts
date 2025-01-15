@@ -1,15 +1,16 @@
 import { create } from "zustand";
 
 interface AppState {
-  isAuth: boolean;
+  isAuth: boolean| string;
   setIsAuth: (isAuth: boolean) => void;
 }
 
 // Utility function to load initial state from local storage
-const loadFromLocalStorage = (): boolean => {
+const loadFromLocalStorage = (): boolean|string => {
   if (typeof window !== "undefined") {
-    const storedAuth = localStorage.getItem("userDetail");
-    return storedAuth ? true: false;
+    const storedAuth = localStorage.getItem("jwt");
+    
+    return storedAuth ? storedAuth: false;
   }
   return false; // default value if localStorage is not accessible
 };

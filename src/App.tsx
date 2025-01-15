@@ -8,7 +8,7 @@ import { SocketProvider } from "./context/SocketProvider";
 import { TaskProvider } from "./context/TaskProvider";
 function App() {
   const { isAuth } = useStore();
-  // console.log('asfd',typeof isAuth);
+  console.log('asfd', isAuth);
 
   return (
     <>

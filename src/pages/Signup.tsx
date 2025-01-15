@@ -138,7 +138,7 @@ export default function Signup(): JSX.Element {
 
               {/* <!-- Email input --> */}
               <input
-                className={`mb-6 w-full border bg-gray-200 border-black p-2 ${
+                className={`mb-6 w-full border bg-gray-200 text-black border-black p-2 ${
                   errors.fullname
                     ? "focus-visible:ring-red-500 outline outline-red-500"
                     : ""
@@ -149,7 +149,7 @@ export default function Signup(): JSX.Element {
               />
 
               <input
-                className={`mb-6 w-full border bg-gray-200 border-black p-2 ${
+                className={`mb-6 w-full border bg-gray-200 text-black border-black p-2 ${
                   errors.email
                     ? "focus-visible:ring-red-500 outline outline-red-500"
                     : ""
@@ -161,7 +161,7 @@ export default function Signup(): JSX.Element {
 
               {/* <!--Password input--> */}
               <input
-                className={`mb-6 w-full border bg-gray-200 border-black p-2 ${
+                className={`mb-6 w-full border bg-gray-200 text-black border-black p-2 ${
                   errors.password
                     ? "focus-visible:ring-red-500 outline outline-red-500"
                     : ""
@@ -171,7 +171,7 @@ export default function Signup(): JSX.Element {
                 {...register("password")}
               />
               <input
-                className={`mb-6 w-full border bg-gray-200 border-black p-2 ${
+                className={`mb-6 w-full border bg-gray-200 text-black border-black p-2 ${
                   errors.confirmPassword
                     ? "focus-visible:ring-red-500 outline outline-red-500"
                     : ""

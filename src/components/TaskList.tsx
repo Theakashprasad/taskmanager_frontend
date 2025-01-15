@@ -86,9 +86,11 @@ const TaskList = () => {
   };
 
   const handleDeleteClick = (taskId: string) => {
+    const token = localStorage.getItem("jwt");
+
     // setTasks(tasks.filter((task) => task._id !== taskId));
     if (!socket) return;
-    socket.emit("deleteTask", taskId);
+    socket.emit("deleteTask", taskId, token);
     // toast.success("Deleted")
   };
 

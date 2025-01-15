@@ -32,14 +32,6 @@ export default function Login(): JSX.Element {
         toast.success("LOGIN IS VERIFIED", {
           position: "top-center",
         });
-        const obj = {
-          id: response.data._id,
-          fullname: response.data.fullname,
-          email: response.data.email,
-          profilePic: response.data.profilePic,
-        };
-
-        localStorage.setItem("userDetail", JSON.stringify(obj));
         localStorage.setItem("jwt", JSON.stringify(response.data.token));
         setIsAuth(true);
         router("/");
@@ -146,7 +138,7 @@ export default function Login(): JSX.Element {
 
               {/* <!-- Email input --> */}
               <input
-                className="w-full mb-6 px-3 py-2 border border-black bg-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+                className="w-full mb-6 px-3 py-2 text-black  border border-black bg-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
                 id="username"
                 placeholder="email"
                 onChange={(e) => setEmail(e.target.value)}
@@ -154,7 +146,7 @@ export default function Login(): JSX.Element {
 
               {/* <!--Password input--> */}
               <input
-                className="w-full mb-6 px-3 py-2 border border-black bg-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+                className="w-full mb-6 px-3 py-2 text-black  border border-black bg-gray-200  rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
                 type="password"
                 id="password"
                 placeholder="Password"
