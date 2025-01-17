@@ -1,13 +1,8 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: 'https://taskmanager-7xd2.onrender.com',
-  withCredentials: true,
-  timeout: 10000, // 10 second timeout
-  headers: {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json'
-  }
+  baseURL: import.meta.env.VITE_PUBLIC_SERVER_URL, // Environment variable for the base URL
+  withCredentials: true, // Allows credentials (cookies, auth headers) to be sent
 });
 
 // Request Interceptor: Attach Authorization Token
