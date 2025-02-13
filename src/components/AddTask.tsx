@@ -1,45 +1,38 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSocket } from "../context/useSocket";
+import { toast } from "react-toastify";
 
 const AddTask = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  // const dispatch = useDispatch();
   const socket = useSocket();
 
-  // const handleSubmit = (e: any) => {
-  //   e.preventDefault();
-  //   if (title.trim()) {
-  //     // dispatch(addTask({ title, description }))
-  //     // .unwrap()
-  //     // .then(() => {
-  //     //   setTitle('');
-  //     //   setDescription('');
-  //     //   toast.success('Task added successfully!');
-  //     // })
-  //     // .catch((error: any) => {
-  //     //   toast.error('Failed to add task!', error);
-  //     // });
+  useEffect(() => {
+    if (!socket) return;
 
-  //   }
-  // };
+    const handleTaskExists = (data: any) => {
+      toast.error(data || "Task Already Exists", { position: "top-center" });
+    };
+
+    socket.on("taskExists", handleTaskExists);
+
+    return () => {
+      socket.off("taskExists", handleTaskExists); // Cleanup to prevent multiple listeners
+    };
+  }, [socket]);
 
   function addTask(e: any) {
     e.preventDefault();
 
-    console.log(title);
-
     if (!title.trim()) return;
     const userTask = {
-      title: title,
+      title,
       isCompleted: false,
-      description: description,
+      description,
     };
 
     if (socket) {
       const token = localStorage.getItem("jwt");
-      console.log("sadfsdf", token);
-
       socket.emit("addTask", { userTask, token });
       setDescription("");
       setTitle("");

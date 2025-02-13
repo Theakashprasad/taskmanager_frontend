@@ -1,16 +1,16 @@
-import  { useEffect, useState } from "react";
-import {  Trash2, Check } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Trash2, Check, Pencil } from "lucide-react";
 import { useSocket } from "../context/useSocket";
 import { ITask } from "../Types/User";
 import { useTask } from "../context/useTask";
-
+import { toast } from "react-toastify";
 
 const TaskList = () => {
   //   const tasks = useSelector((state) => state.tasks.items);
   const [tasks, setTasks] = useState<ITask[] | null>();
   console.log(tasks);
   const { setAllTasks } = useTask(); // Access task and setTask from context
-  setAllTasks(tasks||null)
+  setAllTasks(tasks || null);
   //   const dispatch = useDispatch();
   const [editingId, setEditingId] = useState(null);
   const [editTitle, setEditTitle] = useState("");
@@ -38,7 +38,6 @@ const TaskList = () => {
     if (!socket) return;
 
     socket.on("taskAdded", (res) => {
-      console.log("res", res);
 
       // toast.success("Task Added")
       // setNewTask("")
@@ -58,32 +57,45 @@ const TaskList = () => {
       // setTasks((tasks) => [res, ...(tasks || [])]);
     });
 
-    socket.on("taskUpdated", (res) => { 
-      console.log(res);
-      setTasks((prevTasks) => 
-        prevTasks?.map((task) =>
-          task._id === res.id ? { ...task, isCompleted: !task.isCompleted } : task
-        ) || []
+    socket.on("taskUpdated", (res) => {
+      setTasks(
+        (prevTasks) =>
+          prevTasks?.map((task) =>
+            task._id === res.id
+              ? { ...task, isCompleted: !task.isCompleted }
+              : task
+          ) || []
       );
       if (res.success) {
         // toast.success("Marked Complete")
       } else {
         // toast.error("Marked Incomplete")
       }
-    })
+    });
+
+    socket.on("taskEdited", (res) => {
+      console.log('taskEdited',res);
+     
+    setTasks((prevTasks) =>
+      prevTasks?.map((task) =>
+        task._id === res.editingTask._id ? { ...task, title: res.userTask.title, description : res.userTask.description } : task
+      )
+    );
+      if (res.success) {
+        toast.success("Task Updated")
+      } else {
+        toast.error("Task Had Error")
+      }
+    });
 
     return () => {
       socket.off("taskAdded");
       socket.off("taskUpdated");
+      socket.off("taskEdited");
     };
   }, [socket]);
 
-
-
-  const handleUpdateTask = () => {
-    // dispatch(updateTask({ id: editingId, title: editTitle, description: editDescription }));
-    setEditingId(null);
-  };
+  
 
   const handleDeleteClick = (taskId: string) => {
     const token = localStorage.getItem("jwt");
@@ -97,10 +109,51 @@ const TaskList = () => {
   const handleCompletedChange = (task: any) => {
     if (!socket) return;
     const userId = task._id;
-    console.log(userId);
-
     socket.emit("isCompleted", { token, userId });
   };
+
+  const handleEditClick = (task: any) => {
+    setEditingId(task._id);
+    setEditTitle(task.title);
+    setEditDescription(task.description);
+  };
+
+  function handleSave(editingTask: any) {
+    if (!editTitle) {
+      console.error("No title provided");
+      return;
+    }
+
+    // setTasks((prevTasks) =>
+    //   prevTasks?.map((task) =>
+    //     task._id === editingTask._id ? { ...task, title: editTitle } : task
+    //   )
+    // );
+ 
+  const userTask = {
+      title:editTitle,
+      description:editDescription,
+  
+  }
+    try {
+      const token = localStorage.getItem("jwt");
+      if (token) {
+        if (!socket) return;
+        socket.emit("handleTaskEdit", {
+          editingTask,
+          userTask,
+          token,
+        });
+      }
+    } catch (error) {
+      console.error("Error saving task", error);
+      toast.error("An error occurred while updating the task");
+    }
+
+    setEditingId(null);
+    setEditTitle("");
+    setEditDescription("");
+  }
 
   return (
     <div className="mt-8">
@@ -118,15 +171,15 @@ const TaskList = () => {
                     type="text"
                     value={editTitle}
                     onChange={(e) => setEditTitle(e.target.value)}
-                    className="w-full mb-2 p-2 border rounded"
+                    className="w-full mb-2 p-2 border rounded bg-gray-200 text-black"
                   />
                   <textarea
                     value={editDescription}
                     onChange={(e) => setEditDescription(e.target.value)}
-                    className="w-full mb-2 p-2 border rounded"
+                    className="w-full mb-2 p-2 border rounded bg-gray-200 text-black"
                   />
                   <button
-                    onClick={handleUpdateTask}
+                    onClick={() => handleSave(task)}
                     className="bg-green-500 text-white px-2 py-1 rounded-md mr-2"
                   >
                     <Check size={16} />
@@ -173,13 +226,12 @@ const TaskList = () => {
                     {task.isCompleted ? "Completed" : "Pending"}
                   </span>
                   {!task.isCompleted && (
-                    // <button
-                    //   onClick={() => handleEditClick(task)}
-                    //   className="bg-blue-500 text-white px-2 py-1 rounded-md ml-2"
-                    // >
-                    //   <Pencil size={16} />
-                    // </button>
-                    ''
+                    <button
+                      onClick={() => handleEditClick(task)}
+                      className="bg-blue-500 text-white px-2 py-1 rounded-md ml-2"
+                    >
+                      <Pencil size={16} />
+                    </button>
                   )}
                   <button
                     onClick={() => handleDeleteClick(task?._id)}
